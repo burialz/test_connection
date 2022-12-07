@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>canvas - 裁剪</title>
+  <style>
+    /* 给画布增加一个阴影和圆角的样式
+    小球动画
+    应用：
+    最后说一下Canvas的应用。首先是可视化数据的应用，比如说：百度的ECharts、阿里的G2等图表可视化插件。其次是游戏的应用，Canvas 在基于Web的图像显示方面比 Flash 更加立体、精巧，
+    且Canvas游戏在流畅度和跨平台方面更牛。还有图形编辑器的应用，比如可视化组态编辑工具HT，它完全基于Canvas绘制。未来Photoshop能够基于Canvas在web端100%实现。最后模拟器的应用，
+    模拟器产品可以完全由 canvas 来实现，视觉效果上更加逼真模拟实际生活中的工具，进一步优化物联网环境下的使用体验，降低使用者的学习成本。总是未来Canvas的应用只会越来越普遍，所以具备Canvas这门技术是必不可缺的。
+
+    */
+    canvas {
+      box-shadow: 0px 0px 5px #ccc;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="500" height="500">
+    当前浏览器不支持canvas元素，请升级或更换浏览器！
+  </canvas>
+  <script>
+    // 获取 canvas 元素
+    var canvas = document.getElementById('canvas');
+    // 通过判断getContext方法是否存在来判断浏览器的支持性
+    if(canvas.getContext) {
+      // 获取绘图上下文
+      var ctx = canvas.getContext('2d');
+      var ball = {
+        x: 100,
+        y: 100,
+        vx: 1,
+        vy: 3,
+        radius: 25,
+        color: 'blue',
+        draw: function() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+          ctx.closePath();
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      };
+      function draw() {
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // 用带透明度的矩形代替清空
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ball.draw();
+        // 添加加速度
+        ball.vy *= .995;
+        ball.vy += .15;
+        // 添加速率
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+        // 添加边界
+        if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
+          ball.vy = -ball.vy;
+        }
+        if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) {
+          ball.vx = -ball.vx;
+        }
+       window.requestAnimationFrame(draw);
+      }
+      window.requestAnimationFrame(draw);
+      ball.draw();
+    }
+  </script>
+</body>
+</html>

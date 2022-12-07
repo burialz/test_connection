@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>canvas - 绘制二次贝塞尔曲线</title>
+  <style>
+    /* 给画布增加一个阴影和圆角的样式 
+    贝塞尔曲线一般用来绘制复杂有规律的图形，在Canvas中也是一个十分有用的路径类型
+    语法：quadraticCurveTo(cp1x, cp1y, x, y)，其中cp1x和cp1y为一个控制点，x和y为结束点。
+    一段二次贝塞尔曲线是通过一个起点、终点和结束点来控制的。
+
+
+    和二次贝塞尔曲线不同的是三次贝塞尔曲线有两个控制点。
+
+语法：ctx.bezierCurveTo(cp1x,cp1y, cp2x,cp2y, x, y)，其中cp1x和cp1y为一个控制点，cp2x和cp2y为第二个控制点，x和y为结束点。
+
+    
+    
+    
+    */
+    canvas {
+      box-shadow: 0px 0px 5px #ccc;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="500" height="500">
+    当前浏览器不支持canvas元素，请升级或更换浏览器！
+  </canvas>
+  <script>
+    // 获取 canvas 元素
+    var canvas = document.getElementById('canvas');
+    // 通过判断getContext方法是否存在来判断浏览器的支持性
+    if(canvas.getContext) {
+      // 获取绘图上下文
+      var ctx = canvas.getContext('2d');
+      // 绘制一段二次贝塞尔曲线
+      ctx.moveTo(50, 50);
+    //   200,200控制点
+      ctx.quadraticCurveTo(200, 200, 350, 50);
+      // 绘制
+      ctx.stroke();
+
+
+
+
+       // 绘制一段三次贝塞尔曲线
+      //  语法：ctx.bezierCurveTo(cp1x,cp1y, cp2x,cp2y, x, y)，其中cp1x和cp1y为一个控制点，cp2x和cp2y为第二个控制点，x和y为结束点。
+       ctx.beginPath() // 开启路径
+      ctx.moveTo(50, 200);
+      ctx.bezierCurveTo(150, 50, 250, 350, 350, 200);
+      // 绘制
+      ctx.stroke();
+
+
+
+     
+    //  线条的样式
+    
+    //   lineWidth 设置当前绘线的粗细。属性值必须为正数。默认值是 1.0
+      // 绘制一条宽度为10的直线
+      ctx.beginPath()
+      ctx.lineWidth = 10;
+      ctx.moveTo(50, 20);
+      ctx.lineTo(250, 20);
+      ctx.stroke();
+      ctx.closePath();
+      // 绘制一条宽度为20的直线
+      ctx.beginPath()
+      ctx.lineWidth = 20;
+      ctx.moveTo(50, 50);
+      ctx.lineTo(250, 50);
+      ctx.stroke();
+      ctx.closePath();
+
+
+
+    //   lineCap 设置线段端点显示的样子。可选值为：butt，round 和 square。默认是 butt。
+     // lineCap 值为 round
+     ctx.beginPath()
+      ctx.lineWidth = 10;
+      ctx.lineCap='round'
+      ctx.moveTo(50, 50);
+      ctx.lineTo(250, 50);
+      ctx.stroke();
+      ctx.closePath();
+
+
+
+    //  lineJoin 该属性可以设置两线段连接处所显示的样子。可选值为：round, bevel 和 miter。默认是 miter。
+     // lineJoin 值为 miter
+     ctx.beginPath()
+      ctx.lineWidth = 10;
+      ctx.lineJoin='miter'
+      ctx.moveTo(50, 20);
+      ctx.lineTo(100, 60);
+      ctx.lineTo(150, 20);
+      ctx.lineTo(200, 60);
+      ctx.lineTo(250, 20);
+      ctx.stroke();
+      ctx.closePath();
+      // lineJoin 值为 round
+      ctx.beginPath()
+      ctx.lineWidth = 10;
+      ctx.lineJoin='round'
+      ctx.moveTo(50, 100);
+      ctx.lineTo(100, 140);
+      ctx.lineTo(150, 100);
+      ctx.lineTo(200, 140);
+      ctx.lineTo(250, 100);
+      ctx.stroke();
+      ctx.closePath();
+      // lineJoin 值为 bevel
+      ctx.beginPath()
+      ctx.lineWidth = 10;
+      ctx.lineJoin='bevel'
+      ctx.moveTo(50, 180);
+      ctx.lineTo(100, 220);
+      ctx.lineTo(150, 180);
+      ctx.lineTo(200, 220);
+      ctx.lineTo(250, 180);
+      ctx.stroke();
+      ctx.closePath();
+
+
+
+    }
+
+
+
+  </script>
+</body>
+</html>
